@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }} | Professional Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <!-- Professional Navbar -->
+    <nav class="navbar">
+        <div class="logo">{{ data.name.split()[0] }}<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact" class="nav-btn">Contact Me</a></li>
+        </ul>
+    </nav>
+
+    <!-- Corporate Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="greeting">Hello, I am</p>
+                <h1>{{ data.name }}</h1>
+                <!-- Typing effect yahan add kiya hai -->
+                <h2 class="typing-container">
+                    <span class="typing-text" data-text="{{ data.role }}"></span><span class="cursor">|</span>
+                </h2>
+                <p class="hero-desc">BCA Graduate (9.55 CGPA) with a strong foundation in software development. Dedicated to building scalable web applications, solving complex problems, and delivering business value.</p>
+                
+                <div class="hero-actions">
+                    <a href="#contact" class="btn primary-btn">Get In Touch</a>
+                    <a href="{{ url_for('static', filename='PRITY_Resume.pdf') }}" download="Prity_Kumari_Resume.pdf" class="btn secondary-btn"><i class='bx bx-download'></i> Download CV</a>
+                </div>
+            </div>
+            <!-- Profile Photo with AI Glow -->
+            <div class="hero-image">
+                <div class="img-box ai-glow">
+                    <img src="{{ url_for('static', filename='images/profile.png') }}" alt="{{ data.name }}" onerror="this.src='https://via.placeholder.com/400x400/f1f5f9/0f172a?text=Prity+Kumari';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Education -->
+    <section id="about" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Profile</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Summary</h3>
+                    <p>{{ data.summary }}</p>
+                    
+                    <div class="contact-details" style="margin-top: 2rem;">
+                        <p><i class='bx bx-envelope'></i> {{ data.email }}</p>
+                        <p><i class='bx bx-phone'></i> {{ data.phone }}</p>
+                        <p><i class='bx bxl-linkedin'></i> <a href="{{ data.linkedin }}" target="_blank">LinkedIn Profile</a></p>
+                        <p><i class='bx bxl-github'></i> <a href="{{ data.github }}" target="_blank">GitHub Profile</a></p>
+                    </div>
+                </div>
+
+                <div class="education-box">
+                    <h3>Education</h3>
+                    {% for edu in data.education %}
+                    <div class="edu-card tech-border">
+                        <h4>{{ edu.degree }}</h4>
+                        <p class="institute">{{ edu.institute }}</p>
+                        <div class="edu-footer">
+                            <span class="year">{{ edu.year }}</span>
+                            <span class="score">{{ edu.score }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Experience</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="experience-list">
+                {% for exp in data.experience %}
+                <div class="exp-item tech-border">
+                    <div class="exp-left">
+                        <h3>{{ exp.role }}</h3>
+                        <p class="company">{{ exp.company }}</p>
+                    </div>
+                    <div class="exp-right">
+                        <span class="duration">{{ exp.duration }}</span>
+                        <ul class="exp-points">
+                            {% for point in exp.points %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Projects</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="project-grid">
+                {% for proj in data.projects %}
+                <div class="project-card tech-border">
+                    <div class="proj-header">
+                        <h3>{{ proj.title }}</h3>
+                    </div>
+                    <p class="tech-stack">{{ proj.tech }}</p>
+                    <p class="proj-desc">{{ proj.desc }}</p>
+                    
+                    {% if proj.github and proj.github != '#' %}
+                    <a href="{{ proj.github }}" target="_blank" class="project-link">
+                        <i class='bx bxl-github'></i> View Source Code
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Certifications -->
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Skills & Expertise</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="skills-grid">
+                {% for category, skill_list in data.skills.items() %}
+                <div class="skill-box">
+                    <h3>{{ category }}</h3>
+                    <div class="skill-tags">
+                        {% for skill in skill_list %}
+                        <span class="skill-tag tech-border">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="certifications" style="margin-top: 4rem;">
+                <h3 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif;">Certifications</h3>
+                <ul class="cert-list">
+                    {% for cert in data.certifications %}
+                    <li><i class='bx bx-badge-check'></i> {{ cert }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="footer">
+        <div class="container text-center">
+            <h2>Let's Connect</h2>
+            <p>I am currently open to new opportunities and would love to discuss how I can contribute to your team.</p>
+            <a href="mailto:{{ data.email }}" class="btn primary-btn mt-2 ai-glow">Email Me</a>
+            <div class="footer-social">
+                <a href="{{ data.github }}" target="_blank"><i class='bx bxl-github'></i></a>
+                <a href="{{ data.linkedin }}" target="_blank"><i class='bx bxl-linkedin'></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 {{ data.name }}. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script Link Add kiya hai -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

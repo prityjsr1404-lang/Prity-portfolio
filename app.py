@@ -36,13 +36,18 @@ RESUME_DATA = {
             ]
         }
     ],
-    
-       "projects": [
+        "projects": [
+        {
+            "title": "AI Resume Screener Pro",
+            "tech": "Python (Flask), NLP, PyPDF2, SQLAlchemy, SQLite, HTML/CSS",
+            "desc": "Developed an AI-powered recruitment tool that automates resume shortlisting. The system extracts text from PDF resumes, calculates a match score against a Job Description (JD), detects key skills, and ranks candidates on a real-time dashboard. Also includes a database to store screening history and a CSV export feature.",
+            "github": "https://github.com/prityjsr1404-lang/ai-resume-screener" # Apne GitHub repo ka link yahan daalein
+        },
         {
             "title": "NICT Website (Full-Stack)",
             "tech": "Python (Flask), SQLite, SQLAlchemy, Flask-Login, HTML, CSS, JS",
             "desc": "Designed and developed a complete professional website for a computer training institute. Implemented dynamic course pages, faculty profiles, and a secure database-driven Admin Dashboard for staff to view and manage student admission enquiries.",
-            "github": "https://github.com/prityjsr1404-lang/nict-website" # Apna sahi link yahan daalein
+            "github": "https://github.com/prityjsr1404-lang/nict-website" 
         },
         {
             "title": "Online Vehicle Service Management System",
